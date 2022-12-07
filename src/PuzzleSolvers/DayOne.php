@@ -1,10 +1,10 @@
 <?php
 
-namespace App\PuzzleControllers;
+namespace App\PuzzleSolvers;
 
-use App\PuzzleControllers\Abstracts\AbstractDay;
+use App\PuzzleSolvers\Abstracts\Solver;
 
-class DayOne extends AbstractDay
+class DayOne extends Solver
 {
     public function partOne(array $data): string
     {

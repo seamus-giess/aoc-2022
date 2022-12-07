@@ -1,15 +1,18 @@
 <?php
+
+use App\Services\PuzzleService;
+
 require __DIR__ . '/vendor/autoload.php';
 
-use App\PuzzleControllers\DayOne;
+[
+    $puzzle,
+    $parts,
+    $data
+] = explode(';', $argv[1]);
 
-const PUZZLE_BASE = 'App\PuzzleControllers';
+$solver = PuzzleService::getSolver($puzzle);
 
-$puzzleClass = PUZZLE_BASE."\\$argv[1]";
-
-if (class_exists($puzzleClass)) {
+if (is_null($solver)) {
     echo "Puzzle class hasn't been initialised yet!";
     return;
 }
-
-$puzzleController = new $puzzleClass();

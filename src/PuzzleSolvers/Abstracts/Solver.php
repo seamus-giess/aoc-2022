@@ -1,10 +1,10 @@
 <?php
 
-namespace App\PuzzleControllers\Abstracts;
+namespace App\PuzzleSolvers\Abstracts;
 
 use ReflectionClass;
 
-abstract class AbstractDay
+abstract class Solver
 {
     const INPUT_BASE_DIR = __DIR__.'/Resources';
 
