@@ -16,9 +16,6 @@ abstract class AdventSolver extends Solver
 
     protected array $data;
 
-    abstract protected function partOne(): string;
-    abstract protected function partTwo(): string;
-
     public function __construct()
     {
         parent::__construct();
@@ -29,6 +26,22 @@ abstract class AdventSolver extends Solver
         $inputPath = self::INPUTS_BASE."/{$this->shortName}.{$this->fileType}";
         $this->data = self::processInput($inputPath);
     }
+
+    public function __invoke(
+        string $parts,
+        string $dataset
+    ): string
+    {
+        $this->data = $this->$dataset;
+        return match ($parts) {
+            'one' => $this->partOne(),
+            'two' => $this->partTwo(),
+            default => $this->partOne() && $this->partTwo(),
+        };
+    }
+
+    abstract protected function partOne(): string;
+    abstract protected function partTwo(): string;
 
     protected function processInput(string $inputPath): ?array
     {

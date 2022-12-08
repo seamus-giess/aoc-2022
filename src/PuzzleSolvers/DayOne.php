@@ -6,19 +6,6 @@ use App\PuzzleSolvers\Abstracts\AdventSolver;
 
 class DayOne extends AdventSolver
 {
-    public function __invoke(
-        string $parts,
-        string $dataset
-    ): string
-    {
-        $this->data = $this->$dataset;
-        return match ($parts) {
-            'one' => $this->partOne(),
-            'two' => $this->partTwo(),
-            default => $this->partOne() && $this->partTwo(),
-        };
-    }
-
     public function partOne(): string
     {
         return '';
