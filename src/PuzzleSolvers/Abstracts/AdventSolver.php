@@ -33,6 +33,8 @@ abstract class AdventSolver extends Solver
     ): string
     {
         $this->data = $this->$dataset;
+        // TODO handle dataset specification from console command arguments
+
         return match ($parts) {
             'one' => $this->partOne(),
             'two' => $this->partTwo(),
