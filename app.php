@@ -16,3 +16,5 @@ if (is_null($solver)) {
     echo "Puzzle class hasn't been initialised yet!";
     return;
 }
+
+$solver();

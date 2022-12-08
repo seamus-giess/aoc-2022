@@ -2,16 +2,29 @@
 
 namespace App\PuzzleSolvers;
 
-use App\PuzzleSolvers\Abstracts\Solver;
+use App\PuzzleSolvers\Abstracts\AdventSolver;
 
-class DayOne extends Solver
+class DayOne extends AdventSolver
 {
-    public function partOne(array $data): string
+    public function __invoke(
+        string $parts,
+        string $dataset
+    ): string
+    {
+        $this->data = $this->$dataset;
+        return match ($parts) {
+            'one' => $this->partOne(),
+            'two' => $this->partTwo(),
+            default => $this->partOne() && $this->partTwo(),
+        };
+    }
+
+    public function partOne(): string
     {
         return '';
     }
 
-    public function partTwo(array $data): string
+    public function partTwo(): string
     {
         return '';
     }
