@@ -28,9 +28,9 @@ class DayOne extends AdventSolver
         return 'Day Two - Max: ' . array_sum($array);
     }
 
-    public function processInputString(string $stringInput): array
+    public function processInputString(string $inputPath): ?array
     {
-        $groupedRows = explode(PHP_EOL . PHP_EOL, $stringInput);
+        $groupedRows = explode(PHP_EOL . PHP_EOL, $inputPath);
 
         return array_map(
             fn ($groupedItemsString) => array_map(

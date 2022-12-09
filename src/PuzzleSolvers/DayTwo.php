@@ -16,8 +16,11 @@ class DayTwo extends AdventSolver
         return 'Day Two - NOT SOLVED';
     }
 
-    public function processInputString(string $stringInput): array
+    public function processInputString(string $inputPath): ?array
     {
+        if ($stringInput === '') {
+            return null;
+        }
         // TODO update input processor
         $groupedRows = explode(PHP_EOL . PHP_EOL, $stringInput);
 

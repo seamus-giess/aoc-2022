@@ -38,8 +38,8 @@ abstract class AdventSolver extends Solver
     ): string
     {
         $this->data = match ($dataset) {
-            static::GENERATED_DATA_REFERENCE => $this->inputData,
-            default => $this->exampleInputData,
+            static::GENERATED_DATA_REFERENCE => $this->inputData ?? [],
+            default => $this->exampleInputData ?? [],
         };
 
         return $this->partOne() . PHP_EOL . $this->partTwo();
@@ -59,7 +59,7 @@ abstract class AdventSolver extends Solver
         return $this->processInputString($fileContent);
     }
 
-    abstract public function processInputString(string $stringInput): array;
+    abstract public function processInputString(string $inputPath): ?array;
 
     public static function makeNew(string $className): string
     {
