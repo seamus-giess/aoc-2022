@@ -4,11 +4,13 @@ use App\Services\PuzzleService;
 
 require __DIR__ . '/vendor/autoload.php';
 
-[
+const __ROOT__ = __DIR__;
+
+@[
     $puzzle,
     $parts,
-    $data
-] = explode(';', $argv[1]);
+    $data,
+] = explode(':', $argv[1]);
 
 $solver = PuzzleService::getSolver($puzzle);
 
@@ -17,4 +19,4 @@ if (is_null($solver)) {
     return;
 }
 
-$solver();
+$solver($parts, $data);

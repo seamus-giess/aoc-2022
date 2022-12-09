@@ -2,19 +2,19 @@
 
 namespace App\PuzzleSolvers\Abstracts;
 
+use App\Interfaces\Solvable;
 use ReflectionClass;
-use Solvable;
 
 abstract class Solver implements Solvable
 {
-    const INPUT_BASE_DIR = __DIR__.'/Resources';
+    const INPUT_BASE_DIR = __ROOT__.'/Resources';
 
     protected string $shortName;
 
     public function __construct()
     {
-        $this->shortName = (new ReflectionClass(self::class))->getShortName();
+        $this->shortName = (new ReflectionClass(static::class))->getShortName();
     }
 
-    abstract protected function processInput(string $inputPath): ?array;
+    abstract protected function processInputString(string $inputPath): ?array;
 }

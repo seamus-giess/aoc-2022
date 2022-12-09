@@ -21,21 +21,23 @@ abstract class AdventSolver extends Solver
         parent::__construct();
 
         $testInputPath = self::EXAMPLE_INPUTS_BASE."/{$this->shortName}.{$this->fileType}";
-        $this->testData = self::processInput($testInputPath);
+        $this->exampleInputData = self::processInput($testInputPath);
 
         $inputPath = self::INPUTS_BASE."/{$this->shortName}.{$this->fileType}";
-        $this->data = self::processInput($inputPath);
+        $this->inputData = self::processInput($inputPath);
     }
 
     public function __invoke(
-        string $parts,
-        string $dataset
+        ?string $parts = 'both',
+        ?string $dataset = 'example',
     ): string
     {
-        $this->data = $this->$dataset;
-        // TODO handle dataset specification from console command arguments
+        $this->data = match ($dataset) {
+            'real' => $this->inputData,
+            default => $this->exampleInputData,
+        };
 
-        return match ($parts) {
+        return match (strtolower($parts)) {
             'one' => $this->partOne(),
             'two' => $this->partTwo(),
             default => $this->partOne() && $this->partTwo(),
@@ -53,8 +55,8 @@ abstract class AdventSolver extends Solver
             return null;
         }
 
-        return self::decodeInput($fileContent);
+        return $this->processInputString($fileContent);
     }
 
-    abstract public function decodeInput(string $stringInput): array;
+    abstract public function processInputString(string $stringInput): array;
 }
