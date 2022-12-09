@@ -8,8 +8,7 @@ const __ROOT__ = __DIR__;
 
 @[
     $puzzle,
-    $parts,
-    $data,
+    $dataset,
 ] = explode(':', $argv[1]);
 
 $solver = PuzzleService::getSolver($puzzle);
@@ -19,4 +18,4 @@ if (is_null($solver)) {
     return;
 }
 
-echo $solver($parts, $data);
+echo $solver($dataset) . PHP_EOL;

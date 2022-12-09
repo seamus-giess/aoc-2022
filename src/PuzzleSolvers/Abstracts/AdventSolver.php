@@ -9,6 +9,9 @@ abstract class AdventSolver extends Solver
     const EXAMPLE_INPUTS_BASE = self::INPUT_BASE_DIR.'/ExampleInputs';
     const INPUTS_BASE = self::INPUT_BASE_DIR.'/Inputs';
 
+    const EXAMPLE_DATA_REFERENCE = 'example';
+    const GENERATED_DATA_REFERENCE = 'real';
+
     private string $fileType = 'txt';
 
     protected ?array $exampleInputData;
@@ -28,20 +31,15 @@ abstract class AdventSolver extends Solver
     }
 
     public function __invoke(
-        ?string $parts = 'both',
         ?string $dataset = 'example',
     ): string
     {
         $this->data = match ($dataset) {
-            'real' => $this->inputData,
+            static::GENERATED_DATA_REFERENCE => $this->inputData,
             default => $this->exampleInputData,
         };
 
-        return match (strtolower($parts)) {
-            'one' => $this->partOne(),
-            'two' => $this->partTwo(),
-            default => $this->partOne() . PHP_EOL . $this->partTwo(),
-        };
+        return $this->partOne() . PHP_EOL . $this->partTwo();
     }
 
     abstract protected function partOne(): string;
