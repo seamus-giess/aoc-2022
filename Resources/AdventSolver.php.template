@@ -18,7 +18,7 @@ class CLASS_NAME extends AdventSolver
 
     public function processInputString(string $stringInput): array
     {
-        // TODO update input processor
+        // NEW_TODO update input processor
         $groupedRows = explode(PHP_EOL . PHP_EOL, $stringInput);
 
         return array_map(

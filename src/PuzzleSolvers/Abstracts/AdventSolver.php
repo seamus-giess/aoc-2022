@@ -65,6 +65,7 @@ abstract class AdventSolver extends Solver
     {
         $newClassFile = file_get_contents(self::CLASS_TEMPLATE_FILE);
         $newClassFile = str_replace('CLASS_NAME', $className, $newClassFile);
+        $newClassFile = str_replace('NEW_TODO', 'TODO', $newClassFile);
 
         $filesCreated = file_put_contents(self::SOLVER_DIR."/{$className}.php", $newClassFile);
         $filesCreated &= touch(self::EXAMPLE_INPUTS_BASE."/{$className}.txt");
