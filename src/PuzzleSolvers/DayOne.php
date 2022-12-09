@@ -10,7 +10,7 @@ class DayOne extends AdventSolver
     {
         $summedCalories = $this->sumCalories($this->data);
 
-        return '';
+        return 'Day one - Max: '.max($summedCalories);
     }
 
     public function partTwo(): string

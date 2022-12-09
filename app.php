@@ -19,4 +19,4 @@ if (is_null($solver)) {
     return;
 }
 
-$solver($parts, $data);
+echo $solver($parts, $data);

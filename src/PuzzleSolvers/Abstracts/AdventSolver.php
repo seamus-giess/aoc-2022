@@ -40,7 +40,7 @@ abstract class AdventSolver extends Solver
         return match (strtolower($parts)) {
             'one' => $this->partOne(),
             'two' => $this->partTwo(),
-            default => $this->partOne() && $this->partTwo(),
+            default => $this->partOne() . PHP_EOL . $this->partTwo(),
         };
     }
 
