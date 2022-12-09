@@ -35,6 +35,24 @@ class DayTwo extends AdventSolver
         ],
     ];
 
+    const WANTED_THROW = [
+        self::WIN => [
+            self::ROCK => self::PAPER,
+            self::PAPER => self::SCISSORS,
+            self::SCISSORS => self::ROCK,
+        ],
+        self::DRAW => [
+            self::ROCK => self::ROCK,
+            self::PAPER => self::PAPER,
+            self::SCISSORS => self::SCISSORS,
+        ],
+        self::LOST => [
+            self::ROCK => self::SCISSORS,
+            self::PAPER => self::ROCK,
+            self::SCISSORS => self::PAPER,
+        ],
+    ];
+
     const WORTH = [
         self::ROCK => 1,
         self::PAPER => 2,
@@ -47,30 +65,62 @@ class DayTwo extends AdventSolver
         self::DRAW => 3,
     ];
 
+    const EXPECTED_OUTCOME = 'outcome';
+
     private array $guideKey;
 
     public function partOne(): string
     {
-        $this->guideKey = [
-            self::ROCK => self::PAPER,
-            self::PAPER => self::ROCK,
-            self::SCISSORS => self::SCISSORS,
+        $guideKey = [
+            'Y' => self::PAPER,
+            'X' => self::ROCK,
+            'Z' => self::SCISSORS,
         ];
 
         $total = 0;
         foreach ($this->data as $match) {
             $thrown = $match[self::THROWN];
-            $mine = $this->guideKey[$thrown];
+            $mine = $guideKey[$match[self::EXPECTED_OUTCOME]];
 
             $outcome = self::OUTCOMES[$mine][$thrown];
-            $total += self::OUTCOMES_WORTH[$outcome] + self::WORTH[$mine];
+
+            $mineWorth = self::WORTH[$mine];
+            $outcomeWorth = self::OUTCOMES_WORTH[$outcome];
+            $matchWorth = $mineWorth + $outcomeWorth;
+            $total += $matchWorth;
         }
         return 'Day One - Total: '.$total;
     }
 
     public function partTwo(): string
     {
-        return 'Day Two - NOT SOLVED';
+        $guideKey = [
+            'Y' => self::DRAW,
+            'X' => self::LOST,
+            'Z' => self::WIN,
+        ];
+
+        $total = 0;
+        foreach ($this->data as $match) {
+            $thrown = $match[self::THROWN];
+
+            $desiredOutcome = $guideKey[$match[self::EXPECTED_OUTCOME]];
+
+            $mine = self::WANTED_THROW[$desiredOutcome][$thrown];
+            var_dump("Mine: $mine, Thrown: $thrown, DesiredOutcome: $desiredOutcome");
+
+            $mineWorth = self::WORTH[$mine];
+            $outcomeWorth = self::OUTCOMES_WORTH[$desiredOutcome];
+            $matchWorth = $mineWorth + $outcomeWorth;
+            var_dump("MineWorth: $mineWorth, OutcomeWorth: $outcomeWorth, Total: $matchWorth");
+            $total += $matchWorth;
+        }
+
+        if ($total <= 13038 || $total >= 13404) {
+            echo "Bad answer, out of range" . PHP_EOL;
+            die;
+        } else
+        return 'Day Two - Total: '.$total;
     }
 
     public function processInputString(string $inputPath): ?array
@@ -84,21 +134,11 @@ class DayTwo extends AdventSolver
         foreach ($rows as $row) {
             [
                 $thrown,
-                $mine
+                $outcome
             ] = explode(' ', $row);
-            $pairs[] = [self::THROWN => $thrown, self::MINE => $mine];
+            $pairs[] = [self::THROWN => $thrown, self::EXPECTED_OUTCOME => $outcome];
         }
 
-        $this->guideKey = self::makeGuideKey($pairs);
         return $pairs;
-    }
-
-    private function makeGuideKey(array $guide): array
-    {
-        return [
-            'Y' => self::PAPER,
-            'X' => self::ROCK,
-            'Z' => self::SCISSORS,
-        ];
     }
 }
