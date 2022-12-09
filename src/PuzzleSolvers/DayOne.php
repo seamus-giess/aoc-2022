@@ -15,7 +15,17 @@ class DayOne extends AdventSolver
 
     public function partTwo(): string
     {
-        return '';
+        $summedCalories = $this->sumCalories($this->data);
+
+        $array = [];
+        for ($i = 1; $i <= 3; $i++) {
+            $max        = max($summedCalories);
+            $array[]    = $max;
+            $highestElf = array_keys($summedCalories, $max)[0];
+            unset($summedCalories[$highestElf]);
+        }
+
+        return 'Day one - Max: ' . array_sum($array);
     }
 
     public function processInputString(string $stringInput): array
