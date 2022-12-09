@@ -18,11 +18,11 @@ class DayTwo extends AdventSolver
 
     public function processInputString(string $inputPath): ?array
     {
-        if ($stringInput === '') {
+        if ($inputPath === '') {
             return null;
         }
         // TODO update input processor
-        $groupedRows = explode(PHP_EOL . PHP_EOL, $stringInput);
+        $groupedRows = explode(PHP_EOL . PHP_EOL, $inputPath);
 
         return array_map(
             fn ($groupedItemsString) => array_map(
