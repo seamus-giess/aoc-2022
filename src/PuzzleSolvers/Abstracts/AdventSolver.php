@@ -6,6 +6,9 @@ use ReflectionClass;
 
 abstract class AdventSolver extends Solver
 {
+    const CLASS_TEMPLATE_FILE = __ROOT__.'/Resources/AdventSolver.php.template';
+    const SOLVER_DIR = __ROOT__.'/src/PuzzleSolvers';
+
     const EXAMPLE_INPUTS_BASE = self::INPUT_BASE_DIR.'/ExampleInputs';
     const INPUTS_BASE = self::INPUT_BASE_DIR.'/Inputs';
 
@@ -57,4 +60,17 @@ abstract class AdventSolver extends Solver
     }
 
     abstract public function processInputString(string $stringInput): array;
+
+    public static function makeNew(string $className): string
+    {
+        $newClassFile = file_get_contents(self::CLASS_TEMPLATE_FILE);
+        $newClassFile = str_replace('CLASS_NAME', $className, $newClassFile);
+
+        $filesCreated = file_put_contents(self::SOLVER_DIR."/{$className}.php", $newClassFile);
+        $filesCreated &= touch(self::EXAMPLE_INPUTS_BASE."/{$className}.txt");
+        $filesCreated &= touch(self::INPUTS_BASE."/{$className}.txt");
+        return $filesCreated
+            ? "Created new AdventSolver: $className"
+            : "Failed to create new AdventSolver: {$className}";
+    }
 }
